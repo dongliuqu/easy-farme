@@ -1,0 +1,45 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Java template
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+.gitignore
+common/src/main/resources/
+common/src/test/
+system/src/main/java/com/lihao/system/config/
+system/src/main/java/com/lihao/system/controller/
+system/src/main/java/com/lihao/system/dao/
+system/src/main/java/com/lihao/system/service/
+system/src/main/resources/static/
+system/src/main/resources/templates/
+web/core/src/main/resources/
+web/core/src/test/
+web/job/src/main/resources/
+web/job/src/test/
+web/rabbit-mq/src/main/resources/
+web/rabbit-mq/src/test/
+web/redis/src/main/resources/
+web/redis/src/test/
+web/sql/src/main/resources/
+web/sql/src/test/
