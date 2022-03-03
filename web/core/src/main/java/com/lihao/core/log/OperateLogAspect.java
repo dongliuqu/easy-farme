@@ -1,26 +1,21 @@
-package com.yscredit.ys.indchain.aop;
+package com.lihao.core.log;
 
-import com.alibaba.fastjson.JSON;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.yscredit.ys.indchain.common.model.dto.OperateLog;
-import com.yscredit.ys.indchain.listener.bean.OperateLogEventEvent;
-import com.yscredit.ys.indchain.util.JwtUtils;
+import com.google.gson.Gson;
+import com.lihao.core.listener.bean.OperateLogEventEvent;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -30,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -51,7 +47,7 @@ public class OperateLogAspect {
      */
     public static final List<String> responseSkipContentType = Lists.newArrayList("application/octet-stream", "image");
 
-    public static final SimpleDateFormat SIMPLE_DATE_FORMAT =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Pointcut("@annotation(io.swagger.annotations.ApiOperation)")
     public void apiOperate() {
@@ -75,8 +71,7 @@ public class OperateLogAspect {
         //获取请求url,ip,httpMethod
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
+        String name = getUsername();
         sysLog.setUsername(name);
         String ip = request.getRemoteAddr();
         String httpMethod = request.getMethod();
@@ -135,12 +130,12 @@ public class OperateLogAspect {
             }
         }
 
-        sysLog.setRequestArgs(JSON.toJSONString(bodyParamMap));
+        sysLog.setRequestArgs(new Gson().toJson(bodyParamMap));
         Object proceed = joinPoint.proceed();
         //返回值插入
         //如果是minio返回的ResponseEntity流则不转json
         if (!(proceed instanceof ResponseEntity)) {
-            sysLog.setResponseArgs(JSON.toJSONString(proceed));
+            sysLog.setResponseArgs(new Gson().toJson(proceed));
         }
         eventPublisher.publishEvent(new OperateLogEventEvent(sysLog));
         //增加事件驱动
@@ -176,16 +171,21 @@ public class OperateLogAspect {
         Collection<Part> parts = request.getParts();
         for (Part part : parts) {
             String header = part.getHeader("content-disposition");
-            if (StringUtils.isNotBlank(header) && header.contains("filename")) {
+            if (StrUtil.isNotBlank(header) && header.contains("filename")) {
                 //放行
                 continue;
             } else {
                 String name = part.getName();
-                stringMap.put(name, IOUtils.toString(part.getInputStream()));
+                stringMap.put(name, IoUtil.read(part.getInputStream(), StandardCharsets.UTF_8));
             }
         }
+
         return stringMap;
     }
 
 
+    public String getUsername() {
+        // todo
+        return "//todo";
+    }
 }

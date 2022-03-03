@@ -1,6 +1,6 @@
-package com.yscredit.ys.indchain.listener.bean;
+package com.lihao.core.listener.bean;
 
-import com.yscredit.ys.indchain.common.model.dto.OperateLog;
+import com.lihao.core.log.OperateLog;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

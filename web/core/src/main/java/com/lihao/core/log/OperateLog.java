@@ -1,8 +1,6 @@
-package com.yscredit.ys.indchain.common.model.dto;
+package com.lihao.core.log;
 
 import lombok.Data;
-
-import java.util.Date;
 
 @Data
 public class OperateLog {

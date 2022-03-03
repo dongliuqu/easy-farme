@@ -20,6 +20,7 @@
         <module>rabbit-mq</module>
         <module>sql</module>
         <module>job</module>
+        <module>oss</module>
     </modules>
 
     <dependencies>

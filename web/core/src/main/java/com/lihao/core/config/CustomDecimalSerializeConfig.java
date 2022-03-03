@@ -1,4 +1,4 @@
-package com.yscredit.ys.indchain.common.config;
+package com.lihao.core.config;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
-import com.yscredit.ys.indchain.common.annotation.CustomDecimalSerialize;
+import com.lihao.core.anno.CustomDecimalSerialize;
 
 import java.io.IOException;
 import java.math.BigDecimal;
