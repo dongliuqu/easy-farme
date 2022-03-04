@@ -11,4 +11,6 @@ public class Constant {
      * 超级管理员ID
      */
     public static final int SUPER_ADMIN = 1;
+
+    public static final String CACHE_TOKEN_PREFIX = "SYS::LOGIN::";
 }

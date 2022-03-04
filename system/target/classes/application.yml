@@ -1,11 +1,13 @@
 server:
-  port: ${SERVER_PORT:6312}
+  port: ${SERVER_PORT:8080}
 
 spring:
+  profiles:
+    active: default
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:${DATASOURCE_DBTYPE:mysql}://${DATASOURCE_HOST:10.1.1.101}:${DATASOURCE_PORT:3306}/${DATASOURCE_TARGET:zq_data_sync}?characterEncoding=UTF-8&useUnicode=true&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    url: jdbc:${DATASOURCE_DBTYPE:mysql}://${DATASOURCE_HOST:10.1.1.101}:${DATASOURCE_PORT:3306}/${DATASOURCE_TARGET:siq_finance_admin}?characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: ${DATASOURCE_USERNAME:cxdev}
     password: ${DATASOURCE_PASSWORD:123456}
     hikari:
@@ -16,3 +18,59 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: Select 1
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:10.1.1.170}
+    port: ${RABBIT_MQ_PORT:5672}
+    username: ${RABBIT_MQ_USERNAME:guest}
+    password: ${RABBIT_MQ_PASSWORD:guest}
+  redis:
+    host: ${REDIS_HOST:10.1.1.170}
+    port: ${REDIS_PORT:6379}
+#    password: ${REDIS_PASSWORD:123456}
+    lettuce:
+      pool:
+        max-active: 300
+    database: ${REDIS_DATABASE:0}
+  servlet:
+    multipart:
+      max-request-size: "15MB"
+      max-file-size: "5MB"
+
+
+
+logging:
+  level:
+    com.lihao: debug
+    java.sql.PreparedStatement: debug
+  file:
+    path: logs/
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.lihao.system.dao
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.EnumAnnotationTypeHandler
+  global-config:
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+  type-enums-package: com.lihao.system.enums
+
+
+com:
+  lihao:
+    jwt:
+      expire: 36000
+      header: Authorization
+      secret: dahs98712943jbfd8y98&^*^%%jkhg
+      prefix: Bearer
+
+
+
+

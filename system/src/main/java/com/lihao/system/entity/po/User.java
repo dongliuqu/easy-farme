@@ -20,21 +20,12 @@ public class User extends BasePo {
     private String name;
     private String mobile;
     private String username;
-    private String mail;
+//    private String mail;
     private String password;
     private String description;
     private String nickName;
     private String position;
     private String headerImg;
-
-    private Boolean accountNonExpired;
-    private Boolean credentialsNonExpired;
-    private Boolean accountNonLocked;
-
-    /**
-     * 联系电话
-     */
-    private String contactPhone;
 
 
 

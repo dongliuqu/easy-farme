@@ -11,6 +11,8 @@
 
     <artifactId>sql</artifactId>
     <packaging>jar</packaging>
+
+    <description>数据库模块</description>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

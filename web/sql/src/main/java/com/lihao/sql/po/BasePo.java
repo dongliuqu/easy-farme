@@ -1,9 +1,6 @@
 package com.lihao.sql.po;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,7 +10,7 @@ import java.util.Date;
 public class BasePo implements Serializable {
     public final static String DEFAULT_USERNAME = "system";
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     @TableField(fill = FieldFill.INSERT)
     private String createdBy;
@@ -27,11 +24,17 @@ public class BasePo implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
-    public Integer getId() {
+    /**
+     * 删除标识:0=未删除 1=删除
+     */
+    @TableLogic
+    private Integer deleted;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

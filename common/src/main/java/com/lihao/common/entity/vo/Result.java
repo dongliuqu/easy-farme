@@ -1,13 +1,16 @@
 package com.lihao.common.entity.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lihao.common.exception.ErrorType;
 import com.lihao.common.exception.SystemErrorType;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;
 
 @Getter
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class Result<T> {
 
     public static final String SUCCESSFUL_CODE = "000000";

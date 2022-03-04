@@ -14,6 +14,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>web</name>
+
+    <description>spring集成组件相关</description>
     <modules>
         <module>core</module>
         <module>redis</module>
