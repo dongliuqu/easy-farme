@@ -1,6 +1,5 @@
 package com.lihao.core.config;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,14 +12,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@EnableKnife4j
+//@EnableKnife4j
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
+        System.out.println("swagger-----------------");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.springboot.cloud.appraise"))
+//                .apis(RequestHandlerSelectors.basePackage("com.lihao"))
                 .paths(PathSelectors.any())
                 .build();
     }
